@@ -49,7 +49,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-,root,root)
 %doc README ChangeLog AUTHORS
 %{_bindir}/freepopsd
-%{_mandir}/man1/freepopsd.1.bz2
+%{_mandir}/man1/freepopsd.*
 %{_sysconfdir}/init.d/freepops
 %config(noreplace) %{_sysconfdir}/sysconfig/freepops
 %config(noreplace) %{_sysconfdir}/freepops/config.lua
