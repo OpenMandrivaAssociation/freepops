@@ -1,11 +1,18 @@
 Name:		freepops
-Version:	0.0.99
-Release:	%mkrel 2
+Version:	0.2.5
+Release:	%mkrel 1
 
 Summary:	POP3 interface to webmail
 License:	GPL
 Group:		Networking/Mail
 Source: 	http://prdownloads.sourceforge.net/freepops/%{name}-%{version}.tar.bz2
+Source1:	freepopsd.init.d
+Source2:	freepopsd.sysconfig
+Source3:	manual.pdf
+Patch1:	freepops-0.2.4-configure.sh.patch
+Patch2:	freepops-0.2.0-Makefile.patch
+Patch3:	freepops-0.2.0-config.h.patch
+Patch04:	freepops-0.2.0-updater-dialog.patch
 URL:		http://www.freepops.org
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Requires(post): rpm-helper
@@ -16,25 +23,52 @@ BuildRequires:	curl-devel openssl-devel expat-devel bison
 FreePOPs is a daemon that acts as a local pop3 server, translating
 local pop3 requests to remote http requests to supported webmails.
 
+%package updater
+Summary: The new FreePOPs updater (Fltk)
+Group: Applications/Internet
+Requires: freepops = %{version}-%{release} fltk
+
+%description updater
+Fltk based graphical user interface for FreePOPs updating mechanism
+
 %prep
 %setup -q
-./configure.sh linux
+
+%patch1 -p1 -b .configure
+%patch2 -p0 -b .makefile
+%patch3 -p0 -b .config
+%patch4 -p0 -b .dialog
+
+sed -i.debug -e '/getdate.c/s|rm|:|' modules/src/getdate/getdate-curl-7.11.0.diff
+
+cp -p %{SOURCE3} ./
 
 %build
-make all WHERE=/usr/ FORCE_LINK="-L /tmp/freepops-expat/expat/.libs/"
+./configure.sh linux -lua -fltk-ui
+
+make all WHERE=%{_prefix}/ H="" \
+	CC="gcc $RPM_OPT_FLAGS" \
+	HCC="gcc $RPM_OPT_FLAGS"
+
 
 %install
-mkdir -p ${RPM_BUILD_ROOT}/%{_bindir}
-mkdir -p ${RPM_BUILD_ROOT}/%{_mandir}/man1
-mkdir -p ${RPM_BUILD_ROOT}/%{_sysconfdir}/init.d
-mkdir -p ${RPM_BUILD_ROOT}/%{_sysconfdir}/rc3.d
-mkdir -p ${RPM_BUILD_ROOT}/%{_sysconfdir}/sysconfig
-make install DESTDIR=${RPM_BUILD_ROOT} WHERE=/usr/
-#gzip -9 ${RPM_BUILD_ROOT}/usr/share/man/man1/freepopsd.1
-cp buildfactory/freepops.rc.mandriva ${RPM_BUILD_ROOT}/etc/init.d/freepops
-chmod a+x ${RPM_BUILD_ROOT}/etc/init.d/freepops
-cp buildfactory/freepops.sysconfig ${RPM_BUILD_ROOT}/etc/sysconfig/freepops
-mv ${RPM_BUILD_ROOT}/usr/share/doc/freepops/* ${RPM_BUILD_ROOT}/usr/share/doc/freepops-%{version}
+rm -rf $RPM_BUILD_ROOT
+
+mkdir -p ${RPM_BUILD_ROOT}%{_initrddir}
+mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}/sysconfig
+mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/freepops/lua_unofficial
+mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/freepops/lua_updates
+mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/freepops/lua_updates/lxp
+mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/freepops/lua_updates/browser
+mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/freepops/lua_updates/soap
+
+make install DESTDIR=$RPM_BUILD_ROOT/
+rm -rf $RPM_BUILD_ROOT/usr/share/doc/freepops
+chmod +x ${RPM_BUILD_ROOT}%{_bindir}/freepops-updater-dialog
+chmod +x ${RPM_BUILD_ROOT}%{_bindir}/freepops-updater-fltk
+
+install -p -m755 %{SOURCE1} ${RPM_BUILD_ROOT}%{_initrddir}/freepopsd
+install -p -m644 %{SOURCE2} ${RPM_BUILD_ROOT}%{_sysconfdir}/sysconfig/freepopsd
 
 %post
 %_post_service freepops
@@ -46,13 +80,17 @@ mv ${RPM_BUILD_ROOT}/usr/share/doc/freepops/* ${RPM_BUILD_ROOT}/usr/share/doc/fr
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr (-,root,root)
-%doc README ChangeLog AUTHORS
+%defattr(-,root,root,-)
+%doc  doc/MANUAL.txt manual.pdf COPYING INSTALL BUILD AUTHORS ChangeLog README README.modules TODO
+
 %{_bindir}/freepopsd
-%{_mandir}/man1/freepopsd.*
-%{_sysconfdir}/init.d/freepops
-%config(noreplace) %{_sysconfdir}/sysconfig/freepops
+%{_bindir}/freepops-updater-dialog
+%{_datadir}/freepops/*
+%{_mandir}/man1/*
+%{_initrddir}/freepopsd
 %config(noreplace) %{_sysconfdir}/freepops/config.lua
-%{_datadir}/freepops
+%config(noreplace) %{_sysconfdir}/sysconfig/freepopsd
 
-
+%files updater
+%{_bindir}/freepops-updater-fltk
+%{_libdir}/freepops/updater_fltk.so
