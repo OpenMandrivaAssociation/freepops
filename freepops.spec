@@ -12,7 +12,7 @@ Source3:	manual.pdf
 Patch1:	freepops-0.2.4-configure.sh.patch
 Patch2:	freepops-0.2.0-Makefile.patch
 Patch3:	freepops-0.2.0-config.h.patch
-Patch04:	freepops-0.2.0-updater-dialog.patch
+Patch4:	freepops-0.2.0-updater-dialog.patch
 URL:		http://www.freepops.org
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Requires(post): rpm-helper
@@ -43,7 +43,7 @@ Fltk based graphical user interface for FreePOPs updating mechanism
 %prep
 %setup -q
 
-%patch2 -p1 -b .configure
+%patch1 -p1 -b .configure
 %patch2 -p0 -b .makefile
 %patch3 -p0 -b .config
 %patch4 -p0 -b .dialog
