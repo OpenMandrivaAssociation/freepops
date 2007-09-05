@@ -17,7 +17,16 @@ URL:		http://www.freepops.org
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Requires(post): rpm-helper
 Requires(preun):rpm-helper
-BuildRequires:	curl-devel openssl-devel expat-devel bison
+BuildRequires:  curl-devel
+BuildRequires:  lua-devel >= 5.1
+BuildRequires:  expat-devel
+BuildRequires:  readline-devel
+BuildRequires:  bison
+BuildRequires:  flex
+BuildRequires:  fltk-devel
+
+Requires:	lua >= 5.1 mktemp dialog chkconfig   
+
 
 %description
 FreePOPs is a daemon that acts as a local pop3 server, translating
@@ -34,7 +43,7 @@ Fltk based graphical user interface for FreePOPs updating mechanism
 %prep
 %setup -q
 
-%patch1 -p1 -b .configure
+%patch2 -p1 -b .configure
 %patch2 -p0 -b .makefile
 %patch3 -p0 -b .config
 %patch4 -p0 -b .dialog
