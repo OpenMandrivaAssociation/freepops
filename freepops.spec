@@ -25,7 +25,7 @@ BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  fltk-devel
 
-Requires:	lua >= 5.1 mktemp dialog chkconfig   
+Requires:	lua >= 5.1 mktemp dialog chkconfig
 
 
 %description
@@ -102,4 +102,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files updater
 %{_bindir}/freepops-updater-fltk
-%{_libdir}/freepops/updater_fltk.so
+/usr/lib/freepops/updater_fltk.so
