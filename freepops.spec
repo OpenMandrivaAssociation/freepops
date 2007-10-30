@@ -34,7 +34,7 @@ local pop3 requests to remote http requests to supported webmails.
 
 %package updater
 Summary: The new FreePOPs updater (Fltk)
-Group: Applications/Internet
+Group: Networking/Mail
 Requires: freepops = %{version}-%{release} fltk
 
 %description updater
