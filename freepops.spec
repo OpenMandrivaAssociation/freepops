@@ -14,7 +14,6 @@ Patch2:	freepops-0.2.0-Makefile.patch
 Patch3:	freepops-0.2.0-config.h.patch
 Patch4:	freepops-0.2.0-updater-dialog.patch
 URL:		http://www.freepops.org
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Requires(post): rpm-helper
 Requires(preun):rpm-helper
 BuildRequires:  curl-devel
