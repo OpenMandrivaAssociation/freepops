@@ -1,18 +1,18 @@
 Name:		freepops
-Version:	0.2.5
-Release:	%mkrel 5
+Version:	0.2.7
+Release:	%mkrel 1
 
 Summary:	POP3 interface to webmail
-License:	GPL
+License:	GPLv2+
 Group:		Networking/Mail
-Source: 	http://prdownloads.sourceforge.net/freepops/%{name}-%{version}.tar.bz2
+Source: 	http://prdownloads.sourceforge.net/freepops/%{name}-%{version}.tar.gz
 Source1:	freepopsd.init.d
 Source2:	freepopsd.sysconfig
 Source3:	manual.pdf
-Patch1:	freepops-0.2.4-configure.sh.patch
-Patch2:	freepops-0.2.0-Makefile.patch
-Patch3:	freepops-0.2.0-config.h.patch
-Patch4:	freepops-0.2.0-updater-dialog.patch
+Patch1:		freepops-0.2.7-configure.sh.patch
+Patch2:		freepops-0.2.0-Makefile.patch
+Patch3:		freepops-0.2.0-config.h.patch
+Patch4:		freepops-0.2.0-updater-dialog.patch
 URL:		http://www.freepops.org
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Requires(post): rpm-helper
@@ -43,7 +43,7 @@ Fltk based graphical user interface for FreePOPs updating mechanism
 %prep
 %setup -q
 
-%patch1 -p1 -b .configure
+%patch1 -p0 -b .configure
 %patch2 -p0 -b .makefile
 %patch3 -p0 -b .config
 %patch4 -p0 -b .dialog
@@ -53,6 +53,7 @@ sed -i.debug -e '/getdate.c/s|rm|:|' modules/src/getdate/getdate-curl-7.11.0.dif
 cp -p %{SOURCE3} ./
 
 %build
+export PKG_CONFIG_PATH=/usr/lib/pkgconfig
 ./configure.sh linux -lua -fltk-ui
 
 make all WHERE=%{_prefix}/ H="" \
@@ -79,6 +80,8 @@ chmod +x ${RPM_BUILD_ROOT}%{_bindir}/freepops-updater-fltk
 install -p -m755 %{SOURCE1} ${RPM_BUILD_ROOT}%{_initrddir}/freepopsd
 install -p -m644 %{SOURCE2} ${RPM_BUILD_ROOT}%{_sysconfdir}/sysconfig/freepopsd
 
+%find_lang updater_fltk
+
 %post
 %_post_service freepops
 
@@ -88,12 +91,13 @@ install -p -m644 %{SOURCE2} ${RPM_BUILD_ROOT}%{_sysconfdir}/sysconfig/freepopsd
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f updater_fltk.lang
 %defattr(-,root,root,-)
 %doc  doc/MANUAL.txt manual.pdf COPYING INSTALL BUILD AUTHORS ChangeLog README README.modules TODO
 
 %{_bindir}/freepopsd
 %{_bindir}/freepops-updater-dialog
+%{_bindir}/freepops-updater-zenity
 %{_datadir}/freepops/*
 %{_mandir}/man1/*
 %{_initrddir}/freepopsd
