@@ -1,6 +1,6 @@
 Name:		freepops
 Version:	0.2.7
-Release:	%mkrel 1
+Release:	%mkrel 2
 
 Summary:	POP3 interface to webmail
 License:	GPLv2+
@@ -91,7 +91,7 @@ install -p -m644 %{SOURCE2} ${RPM_BUILD_ROOT}%{_sysconfdir}/sysconfig/freepopsd
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f updater_fltk.lang
+%files
 %defattr(-,root,root,-)
 %doc  doc/MANUAL.txt manual.pdf COPYING INSTALL BUILD AUTHORS ChangeLog README README.modules TODO
 
@@ -104,6 +104,6 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/freepops/config.lua
 %config(noreplace) %{_sysconfdir}/sysconfig/freepopsd
 
-%files updater
+%files updater -f updater_fltk.lang
 %{_bindir}/freepops-updater-fltk
 /usr/lib/freepops/updater_fltk.so
