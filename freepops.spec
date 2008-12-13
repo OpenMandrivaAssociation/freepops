@@ -1,6 +1,6 @@
 Name:		freepops
-Version:	0.2.7
-Release:	%mkrel 2
+Version:	0.2.8
+Release:	%mkrel 1
 
 Summary:	POP3 interface to webmail
 License:	GPLv2+
@@ -9,7 +9,7 @@ Source: 	http://prdownloads.sourceforge.net/freepops/%{name}-%{version}.tar.gz
 Source1:	freepopsd.init.d
 Source2:	freepopsd.sysconfig
 Source3:	manual.pdf
-Patch1:		freepops-0.2.7-configure.sh.patch
+Patch1:		freepops-0.2.8-configure.sh.patch
 Patch2:		freepops-0.2.7-Makefile.patch
 Patch3:		freepops-0.2.0-config.h.patch
 Patch4:		freepops-0.2.0-updater-dialog.patch
