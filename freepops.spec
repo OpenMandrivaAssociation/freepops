@@ -10,7 +10,7 @@ Source1:	freepopsd.init.d
 Source2:	freepopsd.sysconfig
 Source3:	manual.pdf
 Patch1:		freepops-0.2.7-configure.sh.patch
-Patch2:		freepops-0.2.0-Makefile.patch
+Patch2:		freepops-0.2.7-Makefile.patch
 Patch3:		freepops-0.2.0-config.h.patch
 Patch4:		freepops-0.2.0-updater-dialog.patch
 URL:		http://www.freepops.org
