@@ -13,6 +13,7 @@ Patch1:		freepops-0.2.7-configure.sh.patch
 Patch2:		freepops-0.2.7-Makefile.patch
 Patch3:		freepops-0.2.0-config.h.patch
 Patch4:		freepops-0.2.0-updater-dialog.patch
+Patch5:		freepops-0.2.7-fltk-1.1.9.patch
 URL:		http://www.freepops.org
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Requires(post): rpm-helper
@@ -47,6 +48,7 @@ Fltk based graphical user interface for FreePOPs updating mechanism
 %patch2 -p0 -b .makefile
 %patch3 -p0 -b .config
 %patch4 -p0 -b .dialog
+%patch5 -p0 -b .fltk
 
 sed -i.debug -e '/getdate.c/s|rm|:|' modules/src/getdate/getdate-curl-7.11.0.diff
 
