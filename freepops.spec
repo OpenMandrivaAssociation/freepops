@@ -1,6 +1,6 @@
 Name:		freepops
-Version:	0.2.8
-Release:	%mkrel 2
+Version:	0.2.9
+Release:	%mkrel 1
 
 Summary:	POP3 interface to webmail
 License:	GPLv2+
@@ -9,10 +9,11 @@ Source: 	http://prdownloads.sourceforge.net/freepops/%{name}-%{version}.tar.gz
 Source1:	freepopsd.init.d
 Source2:	freepopsd.sysconfig
 Source3:	manual.pdf
+Patch0:		freepops-0.2.9-fix-str-fmt.patch
 Patch1:		freepops-0.2.8-configure.sh.patch
 Patch2:		freepops-0.2.7-Makefile.patch
 Patch3:		freepops-0.2.0-config.h.patch
-Patch4:		freepops-0.2.0-updater-dialog.patch
+#Patch4:		freepops-0.2.0-updater-dialog.patch
 Patch5:		freepops-0.2.7-fltk-1.1.9.patch
 URL:		http://www.freepops.org
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -44,10 +45,11 @@ Fltk based graphical user interface for FreePOPs updating mechanism
 %prep
 %setup -q
 
+%patch0 -p0
 %patch1 -p0 -b .configure
 %patch2 -p0 -b .makefile
 %patch3 -p0 -b .config
-%patch4 -p0 -b .dialog
+#%patch4 -p0 -b .dialog
 %patch5 -p0 -b .fltk
 
 sed -i.debug -e '/getdate.c/s|rm|:|' modules/src/getdate/getdate-curl-7.11.0.diff
@@ -64,23 +66,23 @@ make all WHERE=%{_prefix}/ H="" \
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-mkdir -p ${RPM_BUILD_ROOT}%{_initrddir}
-mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}/sysconfig
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/freepops/lua_unofficial
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/freepops/lua_updates
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/freepops/lua_updates/lxp
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/freepops/lua_updates/browser
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/freepops/lua_updates/soap
+mkdir -p %{buildroot}%{_initrddir}
+mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
+mkdir -p %{buildroot}%{_datadir}/freepops/lua_unofficial
+mkdir -p %{buildroot}%{_datadir}/freepops/lua_updates
+mkdir -p %{buildroot}%{_datadir}/freepops/lua_updates/lxp
+mkdir -p %{buildroot}%{_datadir}/freepops/lua_updates/browser
+mkdir -p %{buildroot}%{_datadir}/freepops/lua_updates/soap
 
-make install DESTDIR=$RPM_BUILD_ROOT/
-rm -rf $RPM_BUILD_ROOT/usr/share/doc/freepops
-chmod +x ${RPM_BUILD_ROOT}%{_bindir}/freepops-updater-dialog
-chmod +x ${RPM_BUILD_ROOT}%{_bindir}/freepops-updater-fltk
+make install DESTDIR=%{buildroot}/
+rm -rf %{buildroot}/usr/share/doc/freepops
+chmod +x %{buildroot}%{_bindir}/freepops-updater-dialog
+chmod +x %{buildroot}%{_bindir}/freepops-updater-fltk
 
-install -p -m755 %{SOURCE1} ${RPM_BUILD_ROOT}%{_initrddir}/freepopsd
-install -p -m644 %{SOURCE2} ${RPM_BUILD_ROOT}%{_sysconfdir}/sysconfig/freepopsd
+install -p -m755 %{SOURCE1} %{buildroot}%{_initrddir}/freepopsd
+install -p -m644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/freepopsd
 
 %find_lang updater_fltk
 
@@ -91,7 +93,7 @@ install -p -m644 %{SOURCE2} ${RPM_BUILD_ROOT}%{_sysconfdir}/sysconfig/freepopsd
 %_preun_service freepops
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
