@@ -1,6 +1,6 @@
 Name:		freepops
 Version:	0.2.9
-Release:	%mkrel 2
+Release:	%mkrel 3
 
 Summary:	POP3 interface to webmail
 License:	GPLv2+
@@ -87,10 +87,10 @@ install -p -m644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/freepopsd
 %find_lang updater_fltk
 
 %post
-%_post_service freepops
+%_post_service freepopsd
 
 %preun
-%_preun_service freepops
+%_preun_service freepopsd
 
 %clean
 rm -rf %{buildroot}
