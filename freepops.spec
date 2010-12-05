@@ -1,6 +1,6 @@
 Name:		freepops
 Version:	0.2.9
-Release:	%mkrel 3
+Release:	%mkrel 4
 
 Summary:	POP3 interface to webmail
 License:	GPLv2+
