@@ -1,0 +1,37 @@
+--- configure.sh.configure	2008-08-27 15:11:14.000000000 +0200
++++ configure.sh	2008-12-13 18:17:25.000000000 +0100
+@@ -8,7 +8,7 @@
+ 
+ Available options: 
+ 	help		this screen
+-	linux		to compile on a linux host and install in /usr/local
++	linux		to compile on a linux host and install in /usr
+ 	linux-gnutls	to compile on a linux host and install in /usr/local
+ 			using gnutls and not openssl
+ 	linux-slack	to compile on a linux slack box (installs in /usr)
+@@ -63,8 +63,8 @@
+ WINDMC=${WINDMC:-windmc}
+ DLLTOOL=${DLLTOOL:-dlltool}
+ MAKE=${MAKE:-make}
+-WHERE=${WHERE:-/usr/local/}
+-LOCALEDIR=${LOCALEDIR:-/usr/local/share/locale}
++WHERE=${WHERE:-/usr/}
++LOCALEDIR=${LOCALEDIR:-/usr/share/locale}
+ TAR=${TAR:-tar}
+ PATCH=${PATCH:-patch}
+ SSL=${SSL:-openssl}
+@@ -318,10 +318,10 @@
+ 		;;
+ 		-lua)
+ 			LUALUA=
+-			HCFLAGS="$HCFLAGS `$PKGCONFIG lua5.1 --cflags`"
+-			HLDFLAGS="$HLDFLAGS `$PKGCONFIG lua5.1 --libs`"
+-			CFLAGS="$CFLAGS `$PKGCONFIG lua5.1 --cflags`"
+-			LDFLAGS="$LDFLAGS `$PKGCONFIG lua5.1 --libs`"
++			HCFLAGS="$HCFLAGS `$PKGCONFIG lua --cflags`"
++			HLDFLAGS="$HLDFLAGS `$PKGCONFIG lua --libs`"
++			CFLAGS="$CFLAGS `$PKGCONFIG lua --cflags`"
++			LDFLAGS="$LDFLAGS `$PKGCONFIG lua --libs`"
+ 		;;
+ 		-luafilesystem)
+ 			LUAFILESYSTEM=

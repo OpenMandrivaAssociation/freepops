@@ -1,0 +1,5 @@
+sources:
+  "freepops-0.2.9.tar.gz:"	30e31a3618d07ec0924e9c1ae06c7acd846a13de
+  "freepopsd.init.d:"	263fb3285f67f2054e00a42d3d8b0faa5776354d
+  "freepopsd.sysconfig:"	1b4b41fcf8444e95ae39fbc6bcba653a815745e5
+  "manual.pdf:"	dac058ace40d38cd175a2044d4b1ab212f4fc21e

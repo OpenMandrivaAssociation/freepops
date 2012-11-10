@@ -1,0 +1,13 @@
+--- config.h	2007-01-14 16:14:19.000000000 +0100
++++ config.h.new	2007-03-21 00:33:33.000000000 +0100
+@@ -59,8 +59,8 @@
+ 	#define DEFAULT_USERAGENT \
+ 		"Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.8)"\
+ 		" Gecko/20050518 Firefox/1.0.4"
+-	#define FREEPOPSLUA_PATH_UPDATES "/var/lib/freepops/lua_updates/"
+-	#define FREEPOPSLUA_PATH_UNOFFICIAL "/var/lib/freepops/lua_unofficial/"
++	#define FREEPOPSLUA_PATH_UPDATES "/usr/share/freepops/lua_updates/"
++	#define FREEPOPSLUA_PATH_UNOFFICIAL "/usr/share/freepops/lua_unofficial/"
+ #endif
+ 
+ 

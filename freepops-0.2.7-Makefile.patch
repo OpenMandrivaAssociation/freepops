@@ -1,0 +1,11 @@
+--- Makefile.makefile	2008-06-11 19:33:56.000000000 +0200
++++ Makefile	2008-12-13 16:16:13.000000000 +0100
+@@ -5,7 +5,7 @@
+ # WHERE is now set by configure.sh
+ PREFIX=$(DESTDIR)$(WHERE)
+ VERSION=$(shell grep "\#define VERSION" config.h | cut -d \" -f 2)
+-MAKEFLAGS+=--no-print-directory
++MAKEFLAGS+=--no-print-directory --disable-static
+ PWD=$(shell pwd)
+ GMO=$(shell ls "$(PWD)/updater-ui/fltk/po" | grep ".gmo")
+ LANGDIR=$(shell ls -d "$(PREFIX)share/locale/"*"/" | sed -e "s/\/*$$//g" -e "s/ /$$/g" -e "s/.*\///g")

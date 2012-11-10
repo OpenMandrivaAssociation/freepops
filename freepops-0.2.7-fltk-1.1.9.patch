@@ -1,0 +1,35 @@
+--- updater-ui/fltk/updater.cxx.fltk	2008-12-13 16:23:11.000000000 +0100
++++ updater-ui/fltk/updater.cxx	2008-12-13 16:23:50.000000000 +0100
+@@ -4,7 +4,7 @@
+ #include "updater.h"
+ #include <lua.hpp>
+ #include "linker.h"
+-#include <Fl/fl_message.H>
++#include <FL/fl_message.H>
+ bool updater_fast_quit;
+ static void quit_program(void);
+ static void automata_next(void);
+--- updater-ui/fltk/linker.cxx.fltk	2008-12-13 16:24:05.000000000 +0100
++++ updater-ui/fltk/linker.cxx	2008-12-13 16:24:20.000000000 +0100
+@@ -23,7 +23,7 @@
+ #define LOG_ZONE "linker"
+ }
+ 
+-#include <Fl/fl_ask.H>
++#include <FL/fl_ask.H>
+ 
+ #include "updater.h"
+ 
+--- configure.sh~	2008-12-13 16:28:12.000000000 +0100
++++ configure.sh	2008-12-13 16:35:03.000000000 +0100
+@@ -338,8 +338,8 @@
+ 		-fltk-ui)
+ 			FLTKUI=1
+ 			if [ "$OS" != "Windows" ]; then
+-				FLTKCFLAGS=`fltk-config --cflags`
+-				FLTKLDFLAGS=`fltk-config --ldflags`
++				FLTKCFLAGS="-I/usr/include"
++				FLTKLDFLAGS="-lfltk -llua"
+ 			else
+ 				FLTKCFLAGS=""
+ 				FLTKLDFLAGS=" -lfltk -lintl -lgdi32 -lwsock32 -lole32 -luuid -L ../../src/ -lfp"
