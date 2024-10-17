@@ -15,7 +15,7 @@ Patch2:		freepops-0.2.7-Makefile.patch
 Patch3:		freepops-0.2.0-config.h.patch
 #Patch4:		freepops-0.2.0-updater-dialog.patch
 Patch5:		freepops-0.2.7-fltk-1.1.9.patch
-URL:		http://www.freepops.org
+URL:		https://www.freepops.org
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Requires(post): rpm-helper
 Requires(preun):rpm-helper
