@@ -19,6 +19,11 @@ URL:		https://www.freepops.org
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Requires(post): rpm-helper
 Requires(preun):rpm-helper
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:  curl-devel
 BuildRequires:  lua-devel >= 5.1
 BuildRequires:  expat-devel
